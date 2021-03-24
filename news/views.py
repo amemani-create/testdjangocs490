@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 
 # Create your views here.
-from newsapi.newsapi_client import NewsApiClient
+from newsapi import NewsApiClient
 
 
 def newsPaper(request):
