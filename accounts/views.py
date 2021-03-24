@@ -1,8 +1,5 @@
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views import generic
-
-from accounts.forms import ChangePasswordForm, EditProfileForm
+from accounts.forms import SignupForm, ChangePasswordForm, EditProfileForm
 from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
@@ -12,7 +9,7 @@ from accounts.models import Profile
 from django.db import transaction
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 from django.core.paginator import Paginator
 
@@ -22,7 +19,6 @@ from posts.models import Follow, Stream, Post
 
 
 def UserProfile(request, username):
-
     user = get_object_or_404(User, username=username)
     profile = Profile.objects.get(user=user)
     url_name = resolve(request.path).url_name
@@ -93,10 +89,23 @@ def UserProfileFavorites(request, username):
     return HttpResponse(template.render(context, request))
 
 
-class UserRegisterView(generic.CreateView):
-    form_class = UserCreationForm
-    template_name = 'registration/signup.html'
-    success_url = reverse_lazy('login')
+def Signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            User.objects.create_user(username=username, email=email, password=password)
+            return redirect('edit_profile')
+    else:
+        form = SignupForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'signup.html', context)
 
 
 @login_required

@@ -1,12 +1,12 @@
 from django.urls import path
-from accounts.views import PasswordChange, PasswordChangeDone, EditProfile, UserRegisterView
+from accounts.views import UserProfile, Signup, PasswordChange, PasswordChangeDone, EditProfile
 
 from django.contrib.auth import views as authViews
 
 urlpatterns = [
 
     path('edit_profile', EditProfile, name='edit_profile'),
-    path('register/', UserRegisterView.as_view(), name='register'),
+    path('signup/', Signup, name='signup'),
     path('login/', authViews.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', authViews.LogoutView.as_view(), {'next_page': 'index'}, name='logout'),
     path('changepassword/', PasswordChange, name='change_password'),
