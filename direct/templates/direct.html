@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+  <div class="columns is-mobile">
+  
+
+  <div class="column is-one-quarter">
+  <aside class="menu">
+    <h1 class="title is-2">
+    Messages
+    </h1>
+  <ul style="overflow-y: scroll; height: 500px" class="menu-list">
+<!--Start of Inbox Section -->
+{% for message in messages %}
+
+<a class="{% if active_direct == message.user.username %}is-active{% endif %}" href="{% url 'direct_messages' message.user.username %}">
+<div class="box">
+  <article class="media">
+    <div class="media-left">
+      <figure class="image is-64x64">
+          {% if message.user.profile.picture %}
+            <img src="{{ message.user.profile.picture.url }}" alt="Placeholder image">
+          {% else %}
+            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+          {% endif %}
+      </figure>
+    </div>
+    <div class="media-content">
+
+      <div class="content">
+        <p>
+          <strong>@{{ message.user.username }}</strong>{% if message.user.profile.first_name %} <small>{{ message.user.profile.first_name }} {{ message.user.profile.last_name }}</small>{% endif %}
+        </p>
+      </div>
+
+      <div class="content">
+        {% if message.unread %}
+        <p style="font-weight: bold; color: royalblue;">
+          <i class="material-icons">mark_chat_unread</i> {{ message.unread }}
+        </p>
+        {% endif %}        
+      </div>
+
+    </div>
+  </article>
+</div>
+</a>
+{% endfor %}
+<!--End of Inbox Section -->
+  </ul>
+  </aside>
+<br>
+<a href="{% url 'user_search' %}" class="button is-success">New message</a>
+
+</div>
+
+<div class="column">
+
+<div style="overflow-y: scroll; height: 500px">
+
+<!--Start of Conversation Section -->
+{% for direct in directs %}
+<div class="box">
+  <article class="media">
+    <div class="media-left">
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p>
+            <strong> @{{ direct.sender.username }} </strong> {% if direct.sender.profile.first_name %} <small> {{ direct.sender.profile.first_name }} {{ direct.sender.profile.last_name }} </small> {% endif %}   on: <strong> <small> {{ direct.date|date:'N d G:i'}} </small> </strong>
+        </p>
+        {{ direct.body }}
+      </div>
+    </div>
+  </article>
+</div>
+{% endfor %}
+
+<!--End of Conversation Section -->
+
+</div>
+
+<!--Start of New DM Section -->
+<form role="form" method="POST" action="{% url 'send_direct' %}">
+  {% csrf_token %}
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+       {% if message.user.profile.picture %}
+            <img src="{{ message.user.profile.picture.url }}" alt="Placeholder image">
+       {% else %}
+            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+       {% endif %}
+    </p>
+  </figure>
+  <div class="media-content">
+    <input type="hidden" name="to_user" value="{{ active_direct }}">
+    <div class="field">
+      <p class="control">
+        <textarea class="textarea" name="body" placeholder="Send a message..."></textarea>
+      </p>
+    </div>
+    <nav class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <button type="submit" name="action" class="button is-info">Send</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</article>
+</form>
+<!--End of New DM Section -->
+</div>
+</div>
+
+{% endblock %}

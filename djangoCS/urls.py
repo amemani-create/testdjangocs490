@@ -15,8 +15,22 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+
+from accounts.views import UserProfile, follow
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+                  path('admin/', admin.site.urls),
+                  path('', include('posts.urls')),
+                  path('user/', include('django.contrib.auth.urls')),
+                  path('user/', include('accounts.urls')),
+                  path('direct/', include('direct.urls')),
+                  path('notifications/', include('notifications.urls')),
+                  path('profile/<username>/', UserProfile, name='profile'),  # name used from UserProfile view
+                  path('profile/<username>/bookmarked', UserProfile, name='bookmarks'),
+                  path('profile/<username>/popular', UserProfile, name='popular'),
+                  path('profile/<username>/follow/<option>', follow, name='follow'),
+                  path('news/', include('news.urls')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

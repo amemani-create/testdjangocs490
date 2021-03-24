@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="columns is-mobile has-text-centered">
+  <div class="column is-half is-offset-one-quarter">
+
+    <div class="card">
+    <div class="card-content">
+
+    <form method="post" action="" enctype="multipart/form-data" role="form">
+    {% csrf_token %}
+    <h3 class="title is-1">Create a New Post</h3>
+
+            <div class="field">
+              <p class="control has-icons-left">
+              <label class="label is-medium">Subject </label>
+                {{ form.subject }}
+                <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+          </div>
+
+           <div class="field">
+              <p class="control has-icons-left">
+              <label class="label is-medium">In Person or Virtual</label>
+                {{ form.virtual }}
+                <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+          </div>
+
+<div class="field">
+              <p class="control has-icons-left">
+              <label class="label is-medium">Location (City, State)</label>
+                City: {{ form.city }} State (use initials): {{ form.state }}
+                <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+          </div>
+
+          <div class="field">
+              <p class="control has-icons-left">
+              <label class="label is-medium">School Level</label><small>(Hold shift to select multiple)</small>
+                {{ form.school_level }}
+                <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+          </div>
+
+        <div class="field">
+              <p class="control has-icons-left">
+              <label class="label is-medium">Topics</label><small>(Hold shift to select multiple)</small>
+                {{ form.topics }}
+                <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+          </div>
+            <div class="field">
+              <p class="control has-icons-left">
+              <label class="label is-medium">Tags (separate by ",")</label>
+                {{ form.tags }}
+                <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+          </div>
+
+        <div class="field">
+              <p class="control has-icons-left">
+              <label class="label is-medium">Picture</label>
+                {{ form.picture }}
+                <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+          </div>
+
+            <div class="field">
+              <p class="control has-icons-left">
+              <label class="label is-medium">Caption</label>
+                {{ form.media }}
+                {{ form.caption }}
+                <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+          </div>
+
+
+
+
+
+      <div class="row">
+        <div class="col s12">
+          <span style="color: red; font-weight: bold;">{{ form.errors }}</span>
+        </div>
+      </div>
+
+      <div class="field">
+      <p class="control">
+        <button type="submit" name="action" class="button is-success">
+          Post
+        </button>
+      </p>
+    </div>
+
+   </form>
+  </div>
+      </div>
+</div>
+ </div>
+{% endblock %}

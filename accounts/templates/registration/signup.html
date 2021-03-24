@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  </head>
+  <body>
+
+
+  <section class="section">
+    <div class="container">
+
+<div class="columns is-mobile has-text-centered">
+  <div class="column is-half is-offset-one-quarter">
+
+  <h1>Register</h1>
+    <div class ="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button class="btn btn-secondary">Register</button>
+
+    </form>
+    </div>
+</div>
+ </div>
+
+    </div>
+  </section>
+
+
+

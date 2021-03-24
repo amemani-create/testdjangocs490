@@ -9,6 +9,9 @@ gunicorn = "==19.9.0"
 psycopg2 = "*"
 whitenoise = "==5.1.0"
 psycopg2-binary = "==2.8.5"
+django-ckeditor = "*"
+pillow = "*"
+newsapi = "*"
 
 [dev-packages]
 

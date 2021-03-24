@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+  <!--card depict of posts -->
+
+        <div class="columns is-mobile is-centered">
+  <div class="column is-half">
+
+  {% for new, des, i in Newslist %}
+  <div class="card">
+
+               <div class="content">
+                    <p class="title is-4"> {{ new }}
+                        {{ value|linebreaks }}
+                    </p>
+               <!--If statement for pic being added to post -->
+                    {% if i %}
+             <div class="card-image">
+                <figure class="image is-4by3 ">
+
+                    <img src="{{ i }}" alt="">
+
+                </figure>
+             </div>
+            {% endif %}
+               <!--End of IF statement for pic being added to post -->
+                    <hr>
+                    {{ des|safe }}
+                    {{ value|linebreaks }}
+               <br>
+                </div>
+
+<hr>
+
+  </div>
+  </div>
+       </br>
+{% endfor %}
+</div>
+  </div>  </br> {% endblock %}

@@ -36,6 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'accounts.apps.AccountsConfig',
+    'posts.apps.PostsConfig',
+    'comments.apps.CommentsConfig',
+    'direct.apps.DirectConfig',
+    'notifications.apps.NotificationsConfig',
+    'news.apps.NewsConfig',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'direct.views.checkDirects',  # adding inbox badge for unread
+                'notifications.views.CountNotifications',  # adding new notifications badge
             ],
         },
     },
@@ -118,3 +128,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [str(BASE_DIR.joinpath('static'))]
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = '/user/login/'
