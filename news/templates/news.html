@@ -7,11 +7,11 @@
         <div class="columns is-mobile is-centered">
   <div class="column is-half">
 
-  {% for new, des, i in Newslist %}
+  {% for new, des, url, i in Newslist %}
   <div class="card">
 
                <div class="content">
-                    <p class="title is-4"> {{ new }}
+                    <p class="title is-4"> <a href ="{{ url }}"> {{ new }}</a>
                         {{ value|linebreaks }}
                     </p>
                <!--If statement for pic being added to post -->
